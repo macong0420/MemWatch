@@ -14,8 +14,13 @@ struct MenuBarView: View {
                     $0.appPath != nil
                         && $0.bundleIdentifier != "com.macongcong.memwatch"
                 }
+                .sorted(by: AppMemoryUsage.byMemoryDesc)
                 .prefix(10)
         )
+    }
+
+    private var listHeight: CGFloat {
+        min(CGFloat(topApps.count) * 50 + 16, 420)
     }
 
     var body: some View {
@@ -35,7 +40,7 @@ struct MenuBarView: View {
                     }
                     .padding(8)
                 }
-                .frame(maxHeight: 420)
+                .frame(height: listHeight)
             }
 
             if let resultMessage {
