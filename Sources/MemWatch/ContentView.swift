@@ -2,7 +2,7 @@ import SwiftUI
 import AppKit
 
 struct ContentView: View {
-    @StateObject private var monitor = ProcessMonitor()
+    @ObservedObject var monitor: ProcessMonitor
     @State private var searchText = ""
     @State private var expandedAppIDs: Set<String> = []
     @State private var isAutoRefresh = true

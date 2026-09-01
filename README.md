@@ -14,7 +14,8 @@ MemWatch 把同一 `.app` 下的所有进程**聚合**成一行，显示总内�
 
 - **App 维度聚合** — 按 `.app` bundle 归组，显示该 App 所有进程的内存总和
 - **进程数** — 一眼看出哪个 App 偷偷开了一堆辅助进程（Dia 29 个、VS Code 16 个…）
-- **一键关闭** — 三级关闭策略（见下）
+- **菜单栏快捷操作** — 状态栏实时显示已用内存，展开即可查看内存占用最高的 App
+- **一键关闭** — 主窗口支持确认后关闭；菜单栏可直接关闭，无需二次确认（三级关闭策略见下）
 - **展开明细** — 点行展开，看每个进程的 PID / 名称 / 路径 / 内存，可单独杀
 - **系统内存总览** — 顶部显示总内存、已用/可用、活跃/联动/压缩分布
 - **搜索** — 按 App 名、Bundle ID、进程名、可执行路径过滤
@@ -80,6 +81,7 @@ MemWatch/
 └── Sources/MemWatch/
     ├── MemWatchApp.swift        # @main 入口
     ├── ContentView.swift        # 主界面
+    ├── MenuBarView.swift        # 菜单栏快捷进程列表
     ├── ProcessMonitor.swift     # 扫描 + 归组 + 刷新循环
     ├── ProcessKiller.swift      # 三级关闭
     ├── AppBundleResolver.swift  # .app 路径 / 名称 / 图标

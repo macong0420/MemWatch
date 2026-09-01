@@ -4,10 +4,11 @@ import AppKit
 @main
 struct MemWatchApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @StateObject private var monitor = ProcessMonitor()
 
     var body: some Scene {
-        WindowGroup {
-            ContentView()
+        Window("MemWatch", id: "main") {
+            ContentView(monitor: monitor)
                 .frame(minWidth: 760, minHeight: 520)
         }
         .windowResizability(.contentMinSize)
@@ -35,6 +36,16 @@ struct MemWatchApp: App {
                 }
             }
         }
+
+        MenuBarExtra {
+            MenuBarView(monitor: monitor)
+        } label: {
+            Label(
+                MemoryFormatter.compact(monitor.systemMemory.usedBytes),
+                systemImage: "memorychip"
+            )
+        }
+        .menuBarExtraStyle(.window)
     }
 }
 
@@ -50,7 +61,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, ObservableObject {
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        true
+        false
     }
 
     func showAboutWindow() {

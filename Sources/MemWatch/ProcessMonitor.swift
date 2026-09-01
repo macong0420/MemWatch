@@ -21,6 +21,7 @@ final class ProcessMonitor: ObservableObject {
     private var refreshInterval: TimeInterval = 2.0
     private var timer: Timer?
     private var isScanning = false
+    private var hasStarted = false
 
     // MARK: - Refresh
 
@@ -63,6 +64,8 @@ final class ProcessMonitor: ObservableObject {
     }
 
     func start() {
+        guard !hasStarted else { return }
+        hasStarted = true
         startTimer()
         refresh()
     }
