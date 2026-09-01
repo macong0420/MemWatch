@@ -93,10 +93,18 @@ struct MenuBarView: View {
 
     private func appRow(_ app: AppMemoryUsage) -> some View {
         HStack(spacing: 10) {
-            Image(systemName: "app.fill")
-                .font(.system(size: 16))
-                .foregroundStyle(.secondary)
-                .frame(width: 24)
+            if let path = app.appPath {
+                Image(nsImage: BundleInfoCache.shared.info(for: path).icon)
+                    .resizable()
+                    .interpolation(.high)
+                    .frame(width: 28, height: 28)
+                    .shadow(color: .black.opacity(0.12), radius: 1, y: 1)
+            } else {
+                Image(systemName: "app.fill")
+                    .font(.system(size: 16))
+                    .foregroundStyle(.secondary)
+                    .frame(width: 28, height: 28)
+            }
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(app.displayName)
